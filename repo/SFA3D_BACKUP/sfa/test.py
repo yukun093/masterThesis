@@ -177,7 +177,7 @@ if __name__ == '__main__':
             #         if out_cap is None:
             #             out_cap_h, out_cap_w = out_img.shape[:2]
             #             fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-            #             out_cap = cv2.VideoWriter(
+            #             out_cap = cv2.VideoWriter(W
             #                 os.path.join(configs.results_dir, '{}.avi'.format(configs.output_video_fn)),
             #                 fourcc, 30, (out_cap_w, out_cap_h))
 

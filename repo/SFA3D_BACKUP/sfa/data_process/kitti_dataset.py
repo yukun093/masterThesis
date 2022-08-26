@@ -131,7 +131,7 @@ class KittiDataset(Dataset):
         # assert os.path.isfile(lidar_file)
         # return np.fromfile(lidar_file, dtype=np.float32).reshape(-1, 4)
 
-        lidar_file = os.path.join(self.lidar_dir, '{:04d}.npy'.format(idx))
+        lidar_file = os.path.join(self.lidar_dir, '{:06d}.npy'.format(idx))
         return np.load(lidar_file)
 
     def get_label(self, idx):

@@ -169,15 +169,14 @@ def main_worker(gpu_idx, configs):
                 tb_writer.add_scalar('Val_loss', val_loss, epoch)
 
         # Save checkpoint
-        if epoch > 290:
-            if configs.is_master_node and ((epoch % configs.checkpoint_freq) == 0):
-                model_state_dict, utils_state_dict = get_saved_state(model, optimizer, lr_scheduler, epoch, configs)
-                save_checkpoint(configs.checkpoints_dir, configs.saved_fn, model_state_dict, utils_state_dict, epoch)
+        if configs.is_master_node and ((epoch % configs.checkpoint_freq) == 0):
+            model_state_dict, utils_state_dict = get_saved_state(model, optimizer, lr_scheduler, epoch, configs)
+            save_checkpoint(configs.checkpoints_dir, configs.saved_fn, model_state_dict, utils_state_dict, epoch)
 
-            if not configs.step_lr_in_epoch:
-                lr_scheduler.step()
-                if tb_writer is not None:
-                    tb_writer.add_scalar('LR', lr_scheduler.get_lr()[0], epoch)
+        if not configs.step_lr_in_epoch:
+            lr_scheduler.step()
+            if tb_writer is not None:
+                tb_writer.add_scalar('LR', lr_scheduler.get_lr()[0], epoch)
 
     if tb_writer is not None:
         tb_writer.close()
