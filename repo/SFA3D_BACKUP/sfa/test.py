@@ -114,7 +114,7 @@ if __name__ == '__main__':
     model = create_model(configs)
     print('\n\n' + '-*=' * 30 + '\n\n')
     assert os.path.isfile(configs.pretrained_path), "No file at {}".format(configs.pretrained_path)
-    model.load_state_dict(torch.load(configs.pretrained_path, map_location='cpu'))
+    model.load_state_dict(torch.load(configs.pretrained_path, map_location='cpu'),strict=False)
     print('Loaded weights from {}\n'.format(configs.pretrained_path))
 
     configs.device = 'cpu' # torch.device('cpu' if configs.no_cuda else 'cuda:{}'.format(configs.gpu_idx))
@@ -186,7 +186,7 @@ if __name__ == '__main__':
             #         raise TypeError
             
             # comment to execute a continuous process
-            # cv2.imshow('test-img', out_img)
+            cv2.imshow('test-img', out_img)
             print('\n[INFO] Press n to see the next sample >>> Press Esc to quit...\n')
             if cv2.waitKey(0) & 0xFF == 27:
                 break

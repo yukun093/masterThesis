@@ -131,7 +131,7 @@ def show_rgb_image_with_boxes(img, labels, calib):
         corners_3d = compute_box_3d(dim, location, ry)
         corners_2d = project_to_image(corners_3d, calib.P2)
         img = draw_box_3d(img, corners_2d, color=cnf.colors[int(cls_id)])
-
+    print('----------------------')
     return img
 
 
