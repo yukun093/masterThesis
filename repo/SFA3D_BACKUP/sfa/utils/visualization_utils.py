@@ -150,7 +150,7 @@ def merge_rgb_to_bev(img_rgb, img_bev, output_width):
     out_img = np.zeros((output_rgb_h + output_bev_h, output_width, 3), dtype=np.uint8)
     # Upper: RGB --> BEV
     # show box in the image
-    # out_img[:output_rgb_h, ...] = ret_img_rgb
+    out_img[:output_rgb_h, ...] = ret_img_rgb
     out_img[output_rgb_h:, ...] = ret_img_bev
 
     return out_img

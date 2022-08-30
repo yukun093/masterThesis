@@ -114,7 +114,7 @@ if __name__ == '__main__':
     model = create_model(configs)
     print('\n\n' + '-*=' * 30 + '\n\n')
     assert os.path.isfile(configs.pretrained_path), "No file at {}".format(configs.pretrained_path)
-    model.load_state_dict(torch.load(configs.pretrained_path, map_location='cpu'),strict=False)
+    model.load_state_dict(torch.load(configs.pretrained_path, map_location='cpu'), strict=False)
     print('Loaded weights from {}\n'.format(configs.pretrained_path))
 
     configs.device = 'cpu' # torch.device('cpu' if configs.no_cuda else 'cuda:{}'.format(configs.gpu_idx))
@@ -169,21 +169,21 @@ if __name__ == '__main__':
 
             print('\tDone testing the {}th sample, time: {:.1f}ms, speed {:.2f}FPS'.format(batch_idx, (t2 - t1) * 1000,
                                                                                            1 / (t2 - t1)))
-            # if configs.save_test_output:
-            #     if configs.output_format == 'image':
-            #         img_fn = os.path.basename(metadatas['img_path'][0])[:-4]
-            #         cv2.imwrite(os.path.join(configs.results_dir, '{}.jpg'.format(img_fn)), out_img)
-            #     elif configs.output_format == 'video':
-            #         if out_cap is None:
-            #             out_cap_h, out_cap_w = out_img.shape[:2]
-            #             fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-            #             out_cap = cv2.VideoWriter(W
-            #                 os.path.join(configs.results_dir, '{}.avi'.format(configs.output_video_fn)),
-            #                 fourcc, 30, (out_cap_w, out_cap_h))
+            if configs.save_test_output:
+                if configs.output_format == 'image':
+                    img_fn = os.path.basename(metadatas['img_path'][0])[:-4]
+                    cv2.imwrite(os.path.join(configs.results_dir, '{}.jpg'.format(img_fn)), out_img)
+                elif configs.output_format == 'video':
+                    if out_cap is None:
+                        out_cap_h, out_cap_w = out_img.shape[:2]
+                        fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+                        out_cap = cv2.VideoWriter(
+                            os.path.join(configs.results_dir, '{}.avi'.format(configs.output_video_fn)),
+                            fourcc, 30, (out_cap_w, out_cap_h))
 
-            #         out_cap.write(out_img)
-            #     else:
-            #         raise TypeError
+                    out_cap.write(out_img)
+                else:
+                    raise TypeError
             
             # comment to execute a continuous process
             cv2.imshow('test-img', out_img)
