@@ -126,7 +126,7 @@ def main_worker(gpu_idx, configs):
     if configs.resume_path is not None:
         utils_path = configs.resume_path.replace('Model_', 'Utils_')
         assert os.path.isfile(utils_path), "=> no checkpoint found at '{}'".format(utils_path)
-        # utils_state_dict = torch.load(utils_path, map_location='cuda:{}'.format(configs.gpu_idx))
+        utils_state_dict = torch.load(utils_path, map_location='cuda:{}'.format(configs.gpu_idx))
         utils_state_dict = torch.load(utils_path, map_location=torch.device('cpu'), strict=False)
         optimizer.load_state_dict(utils_state_dict['optimizer'])
         lr_scheduler.load_state_dict(utils_state_dict['lr_scheduler'])
